@@ -4,10 +4,3 @@ services:
     runtime: docker
     plan: free
     healthCheckPath: /
-    envVars:
-      - key: DATABASE_URL
-        sync: false
-      - key: DATABASE_USERNAME
-        sync: false
-      - key: DATABASE_PASSWORD
-        sync: false
