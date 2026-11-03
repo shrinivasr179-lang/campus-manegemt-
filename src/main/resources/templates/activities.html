@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/style.css">
+    <title>Campus Activities</title>
+</head>
+<body>
+    <h1>Campus Activities</h1>
+
+    <p th:if="${message}" th:text="${message}"></p>
+
+    <h2>Search Activities</h2>
+    <form action="/activities" method="get">
+        <input name="search" placeholder="Search activities"
+               th:value="${search}">
+        <button type="submit">Search</button>
+        <a href="/activities">Show All</a>
+    </form>
+
+    <h2>Add Activity</h2>
+    <form action="/activities/add" method="post">
+        <p>Activity ID: <input name="activityId" required></p>
+        <p>Name: <input name="activityName" required></p>
+        <p>Description: <input name="description"></p>
+        <p>Date and time: <input name="activityDate" type="datetime-local" required></p>
+        <p>Location: <input name="location" required></p>
+        <p>Organizer: <input name="organizer" required></p>
+        <button type="submit">Add Activity</button>
+    </form>
+
+    <h2>Update Activity</h2>
+    <form action="/activities/update" method="post">
+        <p>Activity ID to update: <input name="activityId" required></p>
+        <p>New name: <input name="activityName" required></p>
+        <p>New description: <input name="description"></p>
+        <p>New date and time: <input name="activityDate" type="datetime-local" required></p>
+        <p>New location: <input name="location" required></p>
+        <p>New organizer: <input name="organizer" required></p>
+        <button type="submit">Update Activity</button>
+    </form>
+
+    <h2>Activity List</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Date and Time</th>
+            <th>Location</th>
+            <th>Organizer</th>
+        </tr>
+        <tr th:each="activity : ${activities}">
+            <td th:text="${activity.activityId}"></td>
+            <td th:text="${activity.activityName}"></td>
+            <td th:text="${activity.description}"></td>
+            <td th:text="${activity.activityDate}"></td>
+            <td th:text="${activity.location}"></td>
+            <td th:text="${activity.organizer}"></td>
+        </tr>
+    </table>
+
+    <h2>Delete Activity</h2>
+    <form action="/activities/delete" method="post">
+        <p>Activity ID to delete: <input name="activityId" required></p>
+        <button type="submit">Delete Activity</button>
+    </form>
+
+    <p><a href="/">Back to Home</a></p>
+</body>
+</html>

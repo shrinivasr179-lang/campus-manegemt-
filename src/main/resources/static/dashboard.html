@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Management System</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #101828;
+            background: #f5f7fb;
+        }
+
+        .topbar {
+            height: 66px;
+            padding: 0 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+            background: #191919;
+        }
+
+        .topbar-title { font-size: 20px; font-weight: bold; }
+
+        .topbar-label {
+            padding: 9px 15px;
+            border-radius: 20px;
+            background: #303030;
+            color: #e5e7eb;
+        }
+
+        .layout {
+            min-height: calc(100vh - 66px);
+            display: grid;
+            grid-template-columns: 260px 1fr;
+        }
+
+        .sidebar {
+            padding: 28px 20px;
+            color: white;
+            background: #10182d;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            margin-bottom: 38px;
+        }
+
+        .brand-icon {
+            width: 52px;
+            height: 52px;
+            display: grid;
+            place-items: center;
+            border-radius: 16px;
+            background: #5145e5;
+            font-size: 25px;
+        }
+
+        .brand-name { margin: 0 0 5px; font-size: 20px; }
+
+        .brand-subtitle {
+            margin: 0;
+            color: #aab6d1;
+            font-size: 13px;
+        }
+
+        .nav-title {
+            margin: 0 0 12px 10px;
+            color: #8f9bb5;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .sidebar nav a {
+            display: block;
+            margin: 7px 0;
+            padding: 13px 14px;
+            border-radius: 10px;
+            color: #d4dbea;
+            text-decoration: none;
+        }
+
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            color: white;
+            background: #5145e5;
+        }
+
+        .main-content { min-width: 0; padding: 30px; }
+
+        .welcome {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            min-height: 170px;
+            margin-bottom: 25px;
+            padding: 28px;
+            border-radius: 16px;
+            color: white;
+            background:
+                linear-gradient(90deg, rgba(16, 24, 45, 0.86), rgba(16, 24, 45, 0.18)),
+                url('/engineering_block.jpeg') center 45% / cover no-repeat;
+        }
+
+        .welcome h1 {
+            margin: 0 0 8px;
+            color: white;
+            font-size: 28px;
+        }
+
+        .welcome p { margin: 0; color: #eef2ff; }
+
+        .primary-button {
+            display: inline-block;
+            padding: 13px 18px;
+            border-radius: 10px;
+            color: white;
+            background: #5145e5;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(150px, 1fr));
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+
+        .card {
+            min-height: 145px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            background: white;
+            text-decoration: none;
+            color: #101828;
+            box-shadow: 0 3px 12px #10182808;
+        }
+
+        .card:hover, .module:hover, .quick-link:hover {
+            transform: translateY(-2px);
+        }
+
+        .card-icon { font-size: 23px; }
+        .card h2 { margin: 18px 0 7px; font-size: 18px; }
+        .card p { margin: 0; color: #667085; font-size: 14px; }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.7fr 1fr;
+            gap: 22px;
+        }
+
+        .panel {
+            padding: 23px;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            background: white;
+        }
+
+        .panel h2 { margin: 0 0 8px; font-size: 21px; }
+        .panel-intro { margin: 0 0 18px; color: #667085; }
+
+        .module {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px;
+            margin-top: 10px;
+            border: 1px solid #e9edf4;
+            border-radius: 12px;
+            background: #f8faff;
+            text-decoration: none;
+            color: #101828;
+            transition: transform 0.15s;
+        }
+
+        .module-icon {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            flex: 0 0 42px;
+            border-radius: 12px;
+            color: white;
+            background: #5145e5;
+            font-weight: bold;
+        }
+
+        .module strong { display: block; margin-bottom: 5px; }
+        .module small { color: #667085; }
+
+        .quick-panel {
+            padding: 23px;
+            border-radius: 16px;
+            color: white;
+            background: linear-gradient(145deg, #302e81, #10182d);
+        }
+
+        .quick-panel h2 { margin: 0 0 10px; font-size: 21px; }
+        .quick-panel p { color: #d4dbea; font-size: 14px; }
+
+        .quick-links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .quick-link {
+            min-height: 78px;
+            padding: 14px;
+            border: 1px solid #ffffff30;
+            border-radius: 12px;
+            color: white;
+            background: #ffffff18;
+            text-decoration: none;
+            transition: transform 0.15s;
+        }
+
+        .quick-link span {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .cards { grid-template-columns: repeat(2, 1fr); }
+            .content-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 650px) {
+            .layout { grid-template-columns: 1fr; }
+            .sidebar { padding: 20px; }
+
+            .sidebar nav {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 4px;
+            }
+
+            .main-content { padding: 20px; }
+
+            .welcome {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .cards { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-title">Campus Management System</div>
+        <div class="topbar-label">Campus Portal</div>
+    </header>
+
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">✦</div>
+                <div>
+                    <h2 class="brand-name">Academia</h2>
+                    <p class="brand-subtitle">Smart Campus Portal</p>
+                </div>
+            </div>
+
+            <p class="nav-title">Campus menu</p>
+            <nav>
+                <a class="active" href="/dashboard.html">▦ &nbsp; Dashboard</a>
+                <a href="/students">♙ &nbsp; Students</a>
+                <a href="/faculty">♧ &nbsp; Faculty</a>
+                <a href="/courses">▣ &nbsp; Courses</a>
+                <a href="/resources">⌂ &nbsp; Rooms and Labs</a>
+                <a href="/bookings">▢ &nbsp; Resource Bookings</a>
+                <a href="/attendance">◷ &nbsp; Attendance Tracker</a>
+                <a href="/exams">▣ &nbsp; Exams and Timetable</a>
+                <a href="/activities">◇ &nbsp; Campus Activities</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section class="welcome">
+                <div>
+                    <h1>Dashboard Overview</h1>
+                    <p>Welcome! Choose a section to manage campus information.</p>
+                </div>
+                <a class="primary-button" href="/students">＋ &nbsp; Manage Students</a>
+            </section>
+
+            <section class="cards">
+                <a class="card" href="/students">
+                    <div class="card-icon">♙</div>
+                    <h2>Students</h2>
+                    <p>Add, search, and update student records</p>
+                </a>
+                <a class="card" href="/faculty">
+                    <div class="card-icon">♧</div>
+                    <h2>Faculty</h2>
+                    <p>Manage faculty and departments</p>
+                </a>
+                <a class="card" href="/courses">
+                    <div class="card-icon">▣</div>
+                    <h2>Courses</h2>
+                    <p>Manage courses and credits</p>
+                </a>
+                <a class="card" href="/resources">
+                    <div class="card-icon">⌂</div>
+                    <h2>Campus Resources</h2>
+                    <p>Manage rooms, labs, and equipment</p>
+                </a>
+            </section>
+
+            <section class="content-grid">
+                <div class="panel">
+                    <h2>Campus Management</h2>
+                    <p class="panel-intro">Open a section to view or manage its information.</p>
+
+                    <a class="module" href="/students">
+                        <span class="module-icon">ST</span>
+                        <span><strong>Student Management</strong>
+                        <small>Student details and course information</small></span>
+                    </a>
+
+                    <a class="module" href="/faculty">
+                        <span class="module-icon">FA</span>
+                        <span><strong>Faculty Management</strong>
+                        <small>Faculty details and departments</small></span>
+                    </a>
+
+                    <a class="module" href="/courses">
+                        <span class="module-icon">CO</span>
+                        <span><strong>Courses and Departments</strong>
+                        <small>Course codes, names, and credits</small></span>
+                    </a>
+
+                    <a class="module" href="/resources">
+                        <span class="module-icon">RS</span>
+                        <span><strong>Rooms, Labs, and Equipment</strong>
+                        <small>Campus resources and availability</small></span>
+                    </a>
+                </div>
+
+                <aside class="quick-panel">
+                    <h2>Quick Portal Actions</h2>
+                    <p>Open a frequently used campus section.</p>
+
+                    <div class="quick-links">
+                        <a class="quick-link" href="/bookings">
+                            <span>▢</span>Book a Resource
+                        </a>
+                        <a class="quick-link" href="/attendance">
+                            <span>◷</span>Attendance Tracker
+                        </a>
+                        <a class="quick-link" href="/activities">
+                            <span>◇</span>Campus Activities
+                        </a>
+                        <a class="quick-link" href="/exams">
+                            <span>▣</span>Exams and Timetable
+                        </a>
+                    </div>
+                </aside>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

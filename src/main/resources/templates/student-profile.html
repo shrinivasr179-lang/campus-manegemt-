@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/style.css">
+    <title>Student Profile</title>
+</head>
+<body>
+    <h1>Student Profile</h1>
+
+    <p th:if="${message != null}" th:text="${message}"></p>
+
+    <section th:if="${student != null}">
+        <h2>Student Details</h2>
+        <p><strong>ID:</strong> <span th:text="${student.student_id}"></span></p>
+        <p><strong>Name:</strong> <span th:text="${student.name}"></span></p>
+        <p><strong>Email:</strong> <span th:text="${student.email}"></span></p>
+        <p><strong>Course:</strong> <span th:text="${student.course}"></span></p>
+
+        <h2>Exam Marks</h2>
+        <table>
+            <tr>
+                <th>Exam</th>
+                <th>Maximum Marks</th>
+                <th>Marks Obtained</th>
+                <th>Percentage</th>
+            </tr>
+            <tr th:each="mark : ${marks}">
+                <td th:text="${mark.exam_name}"></td>
+                <td th:text="${mark.max_marks}"></td>
+                <td th:text="${mark.marks_obtained}"></td>
+                <td th:text="${mark.percentage}"></td>
+            </tr>
+        </table>
+
+        <h2>Attendance</h2>
+        <table>
+            <tr>
+                <th>Course</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+            <tr th:each="record : ${attendance}">
+                <td th:text="${record.course_code}"></td>
+                <td th:text="${record.attendance_date}"></td>
+                <td th:text="${record.status}"></td>
+            </tr>
+        </table>
+
+        <h2>Achievements</h2>
+        <table>
+            <tr>
+                <th>Category</th>
+                <th>Activity</th>
+                <th>Date</th>
+                <th>Achievement</th>
+                <th>Details</th>
+            </tr>
+            <tr th:each="item : ${achievements}">
+                <td th:text="${item.category}"></td>
+                <td th:text="${item.activity_name}"></td>
+                <td th:text="${item.activity_date}"></td>
+                <td th:text="${item.achievement}"></td>
+                <td th:text="${item.details}"></td>
+            </tr>
+        </table>
+
+        <h2>Add an Achievement</h2>
+        <form action="/students/profile/achievement" method="post">
+            <input type="hidden" name="studentId" th:value="${student.student_id}">
+            <p>Category: <input name="category" required></p>
+            <p>Activity: <input name="activityName" required></p>
+            <p>Date: <input name="activityDate" type="date"></p>
+            <p>Achievement: <input name="achievement"></p>
+            <p>Details: <input name="details"></p>
+            <button type="submit">Add Achievement</button>
+        </form>
+    </section>
+
+    <p><a href="/students">Back to Students</a></p>
+</body>
+</html>

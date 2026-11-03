@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/style.css">
+    <title>Resource Bookings</title>
+</head>
+<body>
+    <h1>Resource Bookings</h1>
+
+    <p th:if="${message}" th:text="${message}"></p>
+
+    <h2>Search Bookings</h2>
+    <form action="/bookings" method="get">
+        <input name="search" placeholder="Search by booking ID, resource ID, or name"
+               th:value="${search}">
+        <button type="submit">Search</button>
+        <a href="/bookings">Show All</a>
+    </form>
+
+    <h2>Add Booking</h2>
+    <form action="/bookings/add" method="post">
+        <p>Booking ID: <input name="bookingId" required></p>
+        <p>Resource ID: <input name="resourceId" required></p>
+        <p>Booked by: <input name="bookedBy" required></p>
+        <p>Start time: <input name="startTime" type="datetime-local" required></p>
+        <p>End time: <input name="endTime" type="datetime-local" required></p>
+        <button type="submit">Add Booking</button>
+    </form>
+
+    <h2>Booking List</h2>
+    <table>
+        <tr>
+            <th>Booking ID</th>
+            <th>Resource ID</th>
+            <th>Booked By</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Status</th>
+        </tr>
+        <tr th:each="booking : ${bookings}">
+            <td th:text="${booking.bookingId}"></td>
+            <td th:text="${booking.resourceId}"></td>
+            <td th:text="${booking.bookedBy}"></td>
+            <td th:text="${booking.startTime}"></td>
+            <td th:text="${booking.endTime}"></td>
+            <td th:text="${booking.status}"></td>
+        </tr>
+    </table>
+
+    <h2>Delete Booking</h2>
+    <form action="/bookings/delete" method="post">
+        <p>Booking ID to delete: <input name="bookingId" required></p>
+        <button type="submit">Delete Booking</button>
+    </form>
+
+    <p><a href="/resources">Back to Resources</a></p>
+    <p><a href="/">Back to Home</a></p>
+</body>
+</html>

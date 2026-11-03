@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/style.css">
+    <title>Faculty Management</title>
+</head>
+<body>
+    <h1>Faculty Management</h1>
+
+    <h2>Search Faculty</h2>
+    <form action="/faculty" method="get">
+        <input name="search"
+               placeholder="Search by ID, name, or department"
+               th:value="${search}">
+        <button type="submit">Search</button>
+        <a href="/faculty">Show All</a>
+    </form>
+
+    <h2>Add Faculty</h2>
+    <form action="/faculty/add" method="post">
+        <p>Faculty ID: <input name="facultyId" required></p>
+        <p>Name: <input name="name" required></p>
+        <p>Email: <input name="email" type="email" required></p>
+        <p>Department: <input name="department" required></p>
+        <button type="submit">Add Faculty</button>
+    </form>
+
+    <h2>Update Faculty</h2>
+    <form action="/faculty/update" method="post">
+        <p>Faculty ID to update: <input name="facultyId" required></p>
+        <p>New name: <input name="name" required></p>
+        <p>New email: <input name="email" type="email" required></p>
+        <p>New department: <input name="department" required></p>
+        <button type="submit">Update Faculty</button>
+    </form>
+
+    <h2>Delete Faculty</h2>
+    <form action="/faculty/delete" method="post">
+        <p>Faculty ID to delete: <input name="facultyId" required></p>
+        <button type="submit">Delete Faculty</button>
+    </form>
+
+    <h2>Faculty List</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Department</th>
+        </tr>
+        <tr th:each="member : ${facultyMembers}">
+            <td th:text="${member.facultyId}"></td>
+            <td th:text="${member.name}"></td>
+            <td th:text="${member.email}"></td>
+            <td th:text="${member.department}"></td>
+        </tr>
+    </table>
+
+    <p><a href="/students">Back to Students</a></p>
+</body>
+</html>

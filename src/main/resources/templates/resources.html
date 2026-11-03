@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/style.css">
+    <title>Resource Management</title>
+</head>
+<body>
+    <h1>Resource Management</h1>
+
+    <h2>Search Resources</h2>
+    <form action="/resources" method="get">
+        <input name="search" placeholder="Search resources"
+               th:value="${search}">
+        <button type="submit">Search</button>
+        <a href="/resources">Show All</a>
+    </form>
+
+    <h2>Add Resource</h2>
+    <form action="/resources/add" method="post">
+        <p>Resource ID: <input name="resourceId" required></p>
+        <p>Name: <input name="resourceName" required></p>
+        <p>Type: <input name="resourceType" required></p>
+        <p>Location: <input name="location" required></p>
+        <p>Status: <input name="status" placeholder="Available" required></p>
+        <button type="submit">Add Resource</button>
+    </form>
+
+    <h2>Update Resource</h2>
+    <form action="/resources/update" method="post">
+        <p>Resource ID to update: <input name="resourceId" required></p>
+        <p>New name: <input name="resourceName" required></p>
+        <p>New type: <input name="resourceType" required></p>
+        <p>New location: <input name="location" required></p>
+        <p>New status: <input name="status" required></p>
+        <button type="submit">Update Resource</button>
+    </form>
+
+    <h2>Delete Resource</h2>
+    <form action="/resources/delete" method="post">
+        <p>Resource ID to delete: <input name="resourceId" required></p>
+        <button type="submit">Delete Resource</button>
+    </form>
+
+    <h2>Resource List</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Location</th>
+            <th>Status</th>
+        </tr>
+        <tr th:each="resource : ${resources}">
+            <td th:text="${resource.resourceId}"></td>
+            <td th:text="${resource.resourceName}"></td>
+            <td th:text="${resource.resourceType}"></td>
+            <td th:text="${resource.location}"></td>
+            <td th:text="${resource.status}"></td>
+        </tr>
+    </table>
+
+    <p><a href="/">Back to Home</a></p>
+</body>
+</html>

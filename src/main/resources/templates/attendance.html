@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/style.css">
+    <title>Attendance Management</title>
+</head>
+<body>
+    <h1>Attendance Management</h1>
+
+    <p th:if="${message}" th:text="${message}"></p>
+
+    <h2>Search Attendance</h2>
+    <form action="/attendance" method="get">
+        <input name="search"
+               placeholder="Search by attendance ID, student ID, or course"
+               th:value="${search}">
+        <button type="submit">Search</button>
+        <a href="/attendance">Show All</a>
+    </form>
+
+    <h2>Mark Attendance</h2>
+    <form action="/attendance/add" method="post">
+        <p>Attendance ID: <input name="attendanceId" required></p>
+        <p>Student ID: <input name="studentId" required></p>
+        <p>Course Code: <input name="courseCode" required></p>
+        <p>Date: <input name="attendanceDate" type="date" required></p>
+        <p>
+            Status:
+            <select name="status" required>
+                <option value="Present">Present</option>
+                <option value="Absent">Absent</option>
+            </select>
+        </p>
+        <button type="submit">Save Attendance</button>
+    </form>
+
+    <h2>Update Attendance Status</h2>
+    <form action="/attendance/update" method="post">
+        <p>Attendance ID: <input name="attendanceId" required></p>
+        <p>
+            New status:
+            <select name="status" required>
+                <option value="Present">Present</option>
+                <option value="Absent">Absent</option>
+            </select>
+        </p>
+        <button type="submit">Update Status</button>
+    </form>
+
+    <h2>Attendance List</h2>
+    <table>
+        <tr>
+            <th>Attendance ID</th>
+            <th>Student ID</th>
+            <th>Course Code</th>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
+        <tr th:each="record : ${records}">
+            <td th:text="${record.attendanceId}"></td>
+            <td th:text="${record.studentId}"></td>
+            <td th:text="${record.courseCode}"></td>
+            <td th:text="${record.attendanceDate}"></td>
+            <td th:text="${record.status}"></td>
+        </tr>
+    </table>
+
+    <h2>Delete Attendance Record</h2>
+    <form action="/attendance/delete" method="post">
+        <p>Attendance ID: <input name="attendanceId" required></p>
+        <button type="submit">Delete Record</button>
+    </form>
+
+    <p><a href="/students">Go to Students</a></p>
+    <p><a href="/">Back to Home</a></p>
+</body>
+</html>

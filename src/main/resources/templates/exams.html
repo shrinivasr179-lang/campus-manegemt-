@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/style.css">
+    <title>Exam Timetable</title>
+</head>
+<body>
+    <h1>Exam Timetable Management</h1>
+
+    <p th:if="${message != null}" th:text="${message}" style="color: #0f766e; font-weight: bold;"></p>
+
+    <h2>Search Exams</h2>
+    <form action="/exams" method="get">
+        <input name="search"
+               placeholder="Enter exam ID, name, course, or hall"
+               th:value="${search}">
+        <button type="submit">Search</button>
+        <a href="/exams">Show All</a>
+    </form>
+
+    <h2>Add an Exam</h2>
+    <form action="/exams/add" method="post">
+        <p>Exam ID: <input name="examId" required></p>
+        <p>Exam Name: <input name="examName" required></p>
+        <p>Course Code: <input name="courseCode" required></p>
+        <p>Exam Date: <input name="examDate" type="date" required></p>
+        <p>Start Time: <input name="startTime" type="time" required></p>
+        <p>End Time: <input name="endTime" type="time" required></p>
+        <p>Exam Hall: <input name="examHall" required></p>
+        <p>Maximum Marks: <input name="maxMarks" type="number" min="1" required></p>
+        <button type="submit">Add Exam</button>
+    </form>
+
+    <h2>Update an Exam</h2>
+    <form action="/exams/update" method="post">
+        <p>Exam ID to update: <input name="examId" required></p>
+        <p>New Exam Name: <input name="examName" required></p>
+        <p>New Course Code: <input name="courseCode" required></p>
+        <p>New Exam Date: <input name="examDate" type="date" required></p>
+        <p>New Start Time: <input name="startTime" type="time" required></p>
+        <p>New End Time: <input name="endTime" type="time" required></p>
+        <p>New Exam Hall: <input name="examHall" required></p>
+        <p>New Maximum Marks: <input name="maxMarks" type="number" min="1" required></p>
+        <button type="submit">Update Exam</button>
+    </form>
+
+    <h2>Delete an Exam</h2>
+    <form action="/exams/delete" method="post">
+        <p>Exam ID to delete: <input name="examId" required></p>
+        <button type="submit">Delete Exam</button>
+    </form>
+
+    <h2>Exam List</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Exam Name</th>
+            <th>Course</th>
+            <th>Date</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Hall</th>
+            <th>Max Marks</th>
+        </tr>
+        <tr th:each="exam : ${exams}">
+            <td th:text="${exam.examId}"></td>
+            <td th:text="${exam.examName}"></td>
+            <td th:text="${exam.courseCode}"></td>
+            <td th:text="${exam.examDate}"></td>
+            <td th:text="${exam.startTime}"></td>
+            <td th:text="${exam.endTime}"></td>
+            <td th:text="${exam.examHall}"></td>
+            <td th:text="${exam.maxMarks}"></td>
+        </tr>
+    </table>
+
+    <p><a href="/dashboard.html">Back to Dashboard</a></p>
+</body>
+</html>

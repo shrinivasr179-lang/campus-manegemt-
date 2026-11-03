@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/style.css">
+    <title>Course Management</title>
+</head>
+<body>
+    <h1>Course Management</h1>
+
+    <h2>Search Courses</h2>
+    <form action="/courses" method="get">
+        <input name="search"
+               placeholder="Search by code, name, or department"
+               th:value="${search}">
+        <button type="submit">Search</button>
+        <a href="/courses">Show All</a>
+    </form>
+
+    <h2>Add a Course</h2>
+    <form action="/courses/add" method="post">
+        <p>Course Code: <input name="courseCode" required></p>
+        <p>Course Name: <input name="courseName" required></p>
+        <p>Credits: <input name="credits" type="number" min="1" required></p>
+        <p>Department: <input name="department" required></p>
+        <button type="submit">Add Course</button>
+    </form>
+
+    <h2>Update a Course</h2>
+    <form action="/courses/update" method="post">
+        <p>Course Code to update: <input name="courseCode" required></p>
+        <p>New Course Name: <input name="courseName" required></p>
+        <p>New Credits: <input name="credits" type="number" min="1" required></p>
+        <p>New Department: <input name="department" required></p>
+        <button type="submit">Update Course</button>
+    </form>
+
+    <h2>Delete a Course</h2>
+    <form action="/courses/delete" method="post">
+        <p>Course Code to delete: <input name="courseCode" required></p>
+        <button type="submit">Delete Course</button>
+    </form>
+
+    <h2>Course List</h2>
+    <table>
+        <tr>
+            <th>Code</th>
+            <th>Course Name</th>
+            <th>Credits</th>
+            <th>Department</th>
+        </tr>
+        <tr th:each="course : ${courses}">
+            <td th:text="${course.courseCode}"></td>
+            <td th:text="${course.courseName}"></td>
+            <td th:text="${course.credits}"></td>
+            <td th:text="${course.department}"></td>
+        </tr>
+    </table>
+
+    <p><a href="/faculty">Back to Faculty</a></p>
+</body>
+</html>

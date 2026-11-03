@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Login</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            display: grid;
+            place-items: center;
+            font-family: Arial, sans-serif;
+            background:
+                linear-gradient(rgba(15, 24, 45, 0.62), rgba(15, 24, 45, 0.72)),
+                url('/engineering_block.jpeg') center / cover no-repeat;
+        }
+
+        .login-box {
+            width: min(400px, calc(100% - 32px));
+            padding: 35px;
+            border-radius: 18px;
+            background: white;
+            box-shadow: 0 15px 45px #0005;
+        }
+
+        .login-box h1 {
+            margin: 0 0 8px;
+            color: #10182d;
+        }
+
+        .login-box p {
+            margin: 0 0 25px;
+            color: #667085;
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 7px;
+            color: #344054;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 13px;
+            border: 0;
+            border-radius: 8px;
+            color: white;
+            background: #5145e5;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #4035c7;
+        }
+
+        .college-name {
+            margin-top: 20px;
+            text-align: center;
+            color: #667085;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <main class="login-box">
+        <h1>Welcome</h1>
+        <p>Sign in to the Smart Campus Portal</p>
+
+        <form onsubmit="event.preventDefault(); window.location.href='/dashboard.html';">
+            <label for="username">Username</label>
+            <input id="username" name="username" required>
+
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" required>
+
+            <button type="submit">Sign In</button>
+        </form>
+
+        <div class="college-name">Campus Management System</div>
+    </main>
+</body>
+</html>
